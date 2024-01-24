@@ -8,3 +8,4 @@ composer require barryvdh/laravel-debugbar --dev
 php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
 composer require --dev barryvdh/laravel-ide-helper --with-all-dependencies
 php artisan vendor:publish --provider="Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider" --tag=config
+php artisan migrate
