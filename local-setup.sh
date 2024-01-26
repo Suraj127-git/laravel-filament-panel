@@ -8,4 +8,8 @@ composer require barryvdh/laravel-debugbar --dev
 php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
 composer require --dev barryvdh/laravel-ide-helper --with-all-dependencies
 php artisan vendor:publish --provider="Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider" --tag=config
+composer require laravel/octane --dev
+php artisan octane:install
+echo "2"
+echo "yes"
 php artisan migrate

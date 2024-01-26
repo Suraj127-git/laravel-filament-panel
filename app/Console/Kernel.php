@@ -18,10 +18,16 @@ class Kernel extends ConsoleKernel
     /**
      * Register the commands for the application.
      */
+    protected $commands = [
+        // Other commands...
+        \App\Console\Commands\ClearAll::class,
+    ];
+
+    
     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
-
+        
         require base_path('routes/console.php');
     }
 }
