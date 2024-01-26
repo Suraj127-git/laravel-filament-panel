@@ -36,7 +36,7 @@ class EmployeeResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('country_id')
                             ->relationship(name: 'country', titleAttribute: 'name')
-                            ->searchable()
+                            // ->searchable()
                             ->preload()
                             ->live()
                             ->afterStateUpdated(function (Set $set) {
