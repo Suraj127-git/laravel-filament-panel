@@ -9,35 +9,30 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
-    // protected $fillable = [
-    //     'name',
-    //     'email',
-    //     'country_id',
-    // ];
-
-    public function country(): BelongsTo {
-        return $this->belongsTo(Country::class);
-    }
-
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
-    }
-
-    public function state(): BelongsTo {
-        return $this->belongsTo(State::class);
-    }
-
-    public function city(): BelongsTo {
-        return $this->belongsTo(City::class);
-    }
-
-    public function department(): BelongsTo {
+    public function department(): BelongsTo
+    {
         return $this->belongsTo(Department::class);
     }
 
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class);
+    }
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
 }

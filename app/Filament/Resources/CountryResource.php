@@ -3,7 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CountryResource\Pages;
-use App\Filament\Resources\CountryResource\RelationManagers;
+use App\Filament\Resources\CountryResource\RelationManagers\StatesRelationManager;
+use App\Filament\Resources\CountryResource\RelationManagers\EmployeesRelationManager;
 use App\Models\Country;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -12,6 +13,11 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
+// use Filament\Resources\CountryResource\RelationManagers\StatesRelationManager;
+
 
 class CountryResource extends Resource
 {
@@ -27,9 +33,21 @@ class CountryResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                //
-            ]);
+        ->schema([
+            Forms\Components\Section::make('Country Details')
+                ->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('code')
+                        ->required()
+                        ->maxLength(3),
+                    Forms\Components\TextInput::make('phonecode')
+                        ->required()
+                        ->numeric()
+                        ->maxLength(5),
+                ])
+        ]);
     }
 
     public static function table(Table $table): Table
@@ -37,11 +55,21 @@ class CountryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('code')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('phonecode')
-                    ->sortable(),
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -56,10 +84,26 @@ class CountryResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Section::make('Country Info')
+                    ->schema([
+                        TextEntry::make('name')->label('Name'),
+                        TextEntry::make('code')->label(
+                            'Country Code'
+                        ),
+                        TextEntry::make('phonecode')->label('Phone Code'),
+                    ])->columns(2)
+            ]);
+    }
+
     public static function getRelations(): array
     {
         return [
-            //
+            StatesRelationManager::class,
+            EmployeesRelationManager::class,
         ];
     }
 
