@@ -36,7 +36,7 @@ class EmployeeResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('country_id')
                             ->relationship(name: 'country', titleAttribute: 'name')
-                            ->searchable()
+                            // ->searchable()
                             ->preload()
                             ->live()
                             ->afterStateUpdated(function (Set $set) {
@@ -48,7 +48,7 @@ class EmployeeResource extends Resource
                             ->options(fn (Get $get): Collection => State::query()
                                 ->where('country_id', $get('country_id'))
                                 ->pluck('name', 'id'))
-                            ->searchable()
+                            // ->searchable()
                             ->preload()
                             ->live()
                             ->afterStateUpdated(fn (Set $set) => $set('city_id', null))
@@ -57,12 +57,12 @@ class EmployeeResource extends Resource
                             ->options(fn (Get $get): Collection => City::query()
                                 ->where('state_id', $get('state_id'))
                                 ->pluck('name', 'id'))
-                            ->searchable()
+                            // ->searchable()
                             ->preload()
                             ->required(),
                         Forms\Components\Select::make('department_id')
                             ->relationship(name: 'department', titleAttribute: 'name')
-                            ->searchable()
+                            // ->searchable()
                             ->preload()
                             ->required(),
                     ])->columns(2),
