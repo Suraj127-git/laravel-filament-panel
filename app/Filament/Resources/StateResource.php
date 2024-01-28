@@ -17,7 +17,11 @@ class StateResource extends Resource
 {
     protected static ?string $model = State::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-library';
+
+    protected static ?string $navigationGroup = 'Location';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -80,6 +84,7 @@ class StateResource extends Resource
         return [
             'index' => Pages\ListStates::route('/'),
             'create' => Pages\CreateState::route('/create'),
+            'view' => Pages\ViewState::route('/{record}'),
             'edit' => Pages\EditState::route('/{record}/edit'),
         ];
     }
