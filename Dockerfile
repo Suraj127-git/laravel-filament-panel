@@ -14,7 +14,8 @@ RUN docker-php-ext-install pdo_mysql zip
 WORKDIR /app
 COPY . /app
 
-RUN composer install
+# Print more information during composer install for debugging
+RUN composer install --verbose
 
 EXPOSE 8000
 CMD php artisan serve --host=0.0.0.0 --port=8000
