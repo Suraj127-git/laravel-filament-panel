@@ -1,3 +1,4 @@
+composer require illuminate/redis --ignore-platform-req=ext-pcntl --ignore-platform-req=ext-zip --ignore-platform-req=ext-posix
 composer require laravel/pint --dev
 composer require laravel/telescope --dev
 composer require laravel/tinker --dev

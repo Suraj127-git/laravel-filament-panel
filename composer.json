@@ -11,9 +11,15 @@
         "php": "^8.1",
         "filament/filament": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
+        "illuminate/redis": "*",
         "laravel/framework": "^10.10",
+        "laravel/horizon": "^5.22",
+        "laravel/jetstream": "^4.2",
         "laravel/sanctum": "^3.3",
-        "livewire/livewire": "^3.4"
+        "laravel/telescope": "^4.17",
+        "livewire/livewire": "^3.0",
+        "logtail/monolog-logtail": "^3.0",
+        "predis/predis": "^2.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",
@@ -22,7 +28,6 @@
         "laravel/octane": "^2.3",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.18",
-        "laravel/telescope": "^4.17",
         "laravel/tinker": "^2.9",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
@@ -70,7 +75,11 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
-        }
+        },
+        "platform": {
+            "ext-pcntl": "8.0",
+            "ext-posix": "8.0"
+          }
     },
     "minimum-stability": "stable",
     "prefer-stable": true
