@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redis;
+use App\Logging\LoggingImpl;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +15,13 @@ use Illuminate\Support\Facades\Redis;
 |
 */
 
+
 Route::get('/', function () {
     // Redis::Set('name', 'suraj');
     // Redis::Get('name');
-    return view('welcome');
+    $log = new LoggingImpl();
+    dd($log->logInfo('Hello Interface'));
+    // return view('welcome');
 });
 
 Route::middleware([
