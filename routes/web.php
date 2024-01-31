@@ -17,11 +17,7 @@ use App\Logging\LoggingImpl;
 
 
 Route::get('/', function () {
-    // Redis::Set('name', 'suraj');
-    // Redis::Get('name');
-    $log = new LoggingImpl();
-    dd($log->logInfo('Hello Interface'));
-    // return view('welcome');
+    return view('welcome');
 });
 
 Route::middleware([
