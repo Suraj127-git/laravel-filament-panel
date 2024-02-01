@@ -35,4 +35,5 @@ class Employee extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
 }
