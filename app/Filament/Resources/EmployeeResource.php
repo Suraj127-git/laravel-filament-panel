@@ -26,7 +26,7 @@ class EmployeeResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
     protected static ?string $navigationGroup = 'Office Management';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -37,6 +37,7 @@ class EmployeeResource extends Resource
                         Forms\Components\Select::make('country_id')
                             ->relationship(name: 'country', titleAttribute: 'name')
                             // ->searchable()
+                            // ->multiple()
                             ->preload()
                             ->live()
                             ->afterStateUpdated(function (Set $set) {

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use phpDocumentor\Reflection\Types\Nullable;
 
 return new class extends Migration
 {
@@ -13,9 +14,10 @@ return new class extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->index();
+            $table->foreignId('user_id')->Nullable()->default(0)->index();
             $table->string('name');
-            $table->boolean('personal_team');
+            $table->string('slug')->Nullable()->default('teams');
+            $table->boolean('personal_team')->Nullable()->default(true);
             $table->timestamps();
         });
     }
