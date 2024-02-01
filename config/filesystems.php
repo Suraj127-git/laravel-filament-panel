@@ -55,6 +55,12 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        'profile-photos' => [
+            'driver' => 'local', // or 's3', 'ftp', etc. depending on your needs
+            'root' => storage_path('app/public/profile-photos'),
+            'url' => env('APP_URL').'/storage/profile-photos',
+            'visibility' => 'public',
+        ],
 
     ],
 
