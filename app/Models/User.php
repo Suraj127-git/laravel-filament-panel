@@ -2,30 +2,26 @@
 
 namespace App\Models;
 
-use Filament\Models\Contracts\HasAvatar;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Filament\Panel;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Collection;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\HasTenants;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 
-class User extends Authenticatable implements HasTenants, HasAvatar
+class User extends Authenticatable implements HasTenants
 {
-    use HasApiTokens;
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
     use HasProfilePhoto;
     use HasTeams;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -33,7 +29,10 @@ class User extends Authenticatable implements HasTenants, HasAvatar
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'password','avatar_url',
+        'name',
+        'email',
+        'password',
+        'is_admin'
     ];
 
     /**
@@ -44,8 +43,6 @@ class User extends Authenticatable implements HasTenants, HasAvatar
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
     ];
 
     /**
@@ -55,15 +52,8 @@ class User extends Authenticatable implements HasTenants, HasAvatar
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
-    protected $appends = [
-        'profile_photo_url',
+        'password' => 'hashed',
+        'is_admin' => 'boolean',
     ];
 
     public function getTenants(Panel $panel): Collection
@@ -79,10 +69,5 @@ class User extends Authenticatable implements HasTenants, HasAvatar
     public function canAccessTenant(Model $tenant): bool
     {
         return $this->teams->contains($tenant);
-    }
-
-    public function getFilamentAvatarUrl(): ?string
-    {
-        return $this->avatar_url ? Storage::url($this->avatar_url) : null ;
     }
 }
